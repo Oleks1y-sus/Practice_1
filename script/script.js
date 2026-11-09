@@ -47,7 +47,7 @@ const purchases = [
 
 // Функція getTotalSales, яка об'єднує дані через reduce() та find()
 function getTotalSales(productsArray, purchasesArray) {
-  return purchasesArray.reduce((acc, purchase) => {
+  return purchasesArray.reduce((summary, purchase) => {
     // Знаходимо товар за productId за допомогою find()
     const product = productsArray.find(p => p.productId === purchase.productId);
     
@@ -56,14 +56,14 @@ function getTotalSales(productsArray, purchasesArray) {
       const revenue = product.price * purchase.quantity;
       
       // Якщо такий товар уже є в об'єкті-акумуляторі, додаємо дохід, інакше записуємо вперше
-      if (acc[product.name]) {
-        acc[product.name] += revenue;
+      if (summary[product.name]) {
+        summary[product.name] += revenue;
       } else {
-        acc[product.name] = revenue;
+        summary[product.name] = revenue;
       }
     }
     
-    return acc;
+    return summary;
   }, {});
 }
 
